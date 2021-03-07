@@ -1,33 +1,24 @@
-package com.udacity.notepad.data;
+package com.udacity.notepad.data
 
-import android.provider.BaseColumns;
+import android.provider.BaseColumns
+import com.udacity.notepad.data.NotesContract.NoteTable.CREATED_AT
+import com.udacity.notepad.data.NotesContract.NoteTable.IS_PINNED
+import com.udacity.notepad.data.NotesContract.NoteTable.TEXT
+import com.udacity.notepad.data.NotesContract.NoteTable.UPDATED_AT
+import com.udacity.notepad.data.NotesContract.NoteTable._ID
+import com.udacity.notepad.data.NotesContract.NoteTable._TABLE_NAME
 
-import static com.udacity.notepad.data.NotesContract.NoteTable.CREATED_AT;
-import static com.udacity.notepad.data.NotesContract.NoteTable._TABLE_NAME;
+object NotesContract {
+    const val SQL_CREATE_ENTRIES = "CREATE TABLE $_TABLE_NAME ($_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, $TEXT TEXT, $IS_PINNED INTEGER, $CREATED_AT INTEGER, $UPDATED_AT INTEGER)"
+    const val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS $_TABLE_NAME"
+    const val SQL_QUERY_ALL = "SELECT * FROM $_TABLE_NAME ORDER BY $CREATED_AT DESC"
 
-public final class NotesContract {
-    private NotesContract() {}
-
-    public static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + _TABLE_NAME + " (" +
-            NoteTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-            NoteTable.TEXT + " TEXT, " +
-            NoteTable.IS_PINNED + " INTEGER, " +
-            CREATED_AT + " INTEGER, " +
-            NoteTable.UPDATED_AT + " INTEGER" +
-            ")";
-
-    public static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + _TABLE_NAME;
-
-    public static final String SQL_QUERY_ALL =
-            "SELECT * FROM NOTE ORDER BY " + CREATED_AT + " DESC";
-
-    public interface NoteTable extends BaseColumns {
-        String _TABLE_NAME = "notes";
-        String TEXT = "text";
-        String IS_PINNED = "is_pinned";
-        String CREATED_AT = "created_at";
-        String UPDATED_AT = "updated_at";
+    object NoteTable : BaseColumns {
+        const val _ID = "_id"
+        const val _TABLE_NAME = "notes"
+        const val TEXT = "text"
+        const val IS_PINNED = "is_pinned"
+        const val CREATED_AT = "created_at"
+        const val UPDATED_AT = "updated_at"
     }
 }
